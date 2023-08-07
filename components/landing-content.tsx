@@ -7,7 +7,7 @@ const testimonials = [
     name: "Joel",
     avatar: "J",
     title: "Software Engineer",
-    description: "This is the best application I've ever used!",
+    description: "This is the best AI web app I've ever used!",
   },
   {
     name: "Antonio",
