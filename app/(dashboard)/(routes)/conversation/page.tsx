@@ -61,7 +61,7 @@ const ConversationPage = () => {
     <div>
       <Heading
         title="Conversation"
-        description="Our most advanced conversation model.\nPlease do not include single or double quotes."
+        description="Our most advanced conversation model. Please do not include single or double quotes."
         icon={MessageSquare}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
