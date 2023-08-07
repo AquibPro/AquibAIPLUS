@@ -61,7 +61,7 @@ const ConversationPage = () => {
     <div>
       <Heading
         title="Conversation"
-        description="Our most advanced conversation model."
+        description="Our most advanced conversation model.\nPlease do not include single or double quotes."
         icon={MessageSquare}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
@@ -92,7 +92,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
-                        placeholder="Explain Einstein's Theory of relativity" 
+                        placeholder="Explain theory of relativity" 
                         {...field}
                       />
                     </FormControl>
