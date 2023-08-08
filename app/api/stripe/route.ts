@@ -44,9 +44,9 @@ export async function GET() {
             currency: "USD",
             product_data: {
               name: "Aquib AI Pro",
-              description: "Unlimited AI Generations"
+              description: "Access to unlimited AI Generations."
             },
-            unit_amount: 39,
+            unit_amount: 3900,
             recurring: {
               interval: "month"
             }
