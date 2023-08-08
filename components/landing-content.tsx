@@ -31,7 +31,7 @@ const testimonials = [
 
 export const LandingContent = () => {
   return (
-    <div className="px-10 pb-20">
+    <div className="px-10">
       <h2 className="text-center text-4xl text-white font-extrabold mb-10">Testimonials</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {testimonials.map((item) => (
@@ -50,6 +50,17 @@ export const LandingContent = () => {
           </Card>
         ))}
       </div>
+      <footer className="bg-gray-800 text-white py-4 text-center w-full mt-24 mx-0 rounded-tl-xl rounded-tr-xl">
+    <div className="flex justify-center items-center gap-x-10 text-white-400 py-4 px-0">
+      <a href="https://aquibai.aquibkhan.repl.co/privacy-policy.html" target="_blank">Privacy Policy</a>
+      <a href="https://aquibai.aquibkhan.repl.co/terms-of-service.html" target="_blank">Terms of Service</a>
+      <a href="https://aquibai.aquibkhan.repl.co/cancellation.html" target="_blank">Cancellation</a>
+    </div>
+    <p className="pt-4 pb-6 font-bold text-lg">Copyright © 2023 Aquib AI</p>
+  </footer>
+
+
+
     </div>
   )
 }
