@@ -38,4 +38,18 @@ export const tools = [
     bgColor: "bg-green-700/10",
     href: '/code',
   },
+  {
+    label: 'ElementZ',
+    icon: Code,
+    color: "text-orange-700",
+    bgColor: "bg-orange-700/10",
+    href: '/elementz',
+  },
+  {
+    label: 'Einstein',
+    icon: Code,
+    color: "text-blue-700",
+    bgColor: "bg-blue-700/10",
+    href: '/einstein',
+  },
 ];
