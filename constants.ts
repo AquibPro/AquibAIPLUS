@@ -1,4 +1,4 @@
-import { Code, ImageIcon, MessageSquare, Music, VideoIcon } from "lucide-react";
+import { Code, ImageIcon, MessageSquare, Music, VideoIcon, SparklesIcon, AtomIcon } from "lucide-react";
 
 export const MAX_FREE_COUNTS = 5;
 
@@ -40,14 +40,14 @@ export const tools = [
   },
   {
     label: 'ElementZ',
-    icon: Code,
+    icon: AtomIcon,
     color: "text-orange-700",
     bgColor: "bg-orange-700/10",
     href: '/elementz',
   },
   {
     label: 'Einstein',
-    icon: Code,
+    icon: SparklesIcon,
     color: "text-blue-700",
     bgColor: "bg-blue-700/10",
     href: '/einstein',
