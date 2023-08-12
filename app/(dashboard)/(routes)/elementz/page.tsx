@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { Code, MessageSquare } from "lucide-react";
+import { AtomIcon, Code, MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -63,7 +63,7 @@ const ElementZPage = () => {
       <Heading
         title="ElementZ"
         description="Gets the details of the desired element"
-        icon={MessageSquare}
+        icon={AtomIcon}
         iconColor="text-orange-700"
         bgColor="bg-orange-700/10"
       />

@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { Code, MessageSquare } from "lucide-react";
+import { Code, MessageSquare, SparklesIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -63,7 +63,7 @@ const AlbertPage = () => {
       <Heading
         title="Albert Einstein"
         description="The great clone of Albert Einstein!"
-        icon={MessageSquare}
+        icon={SparklesIcon}
         iconColor="text-blue-700"
         bgColor="bg-blue-700/10"
       />
