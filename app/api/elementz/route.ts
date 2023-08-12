@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration);
 
 const instructionMessage: ChatCompletionRequestMessage = {
   role: "system",
-  content: "You are a periodic table genius. You will reply with all the possible details of the given element name. First you'll reply with a list (each item in a new line) and then append the details of the element in a long paragraph."
+  content: "You are a periodic table genius. You will reply with all the possible details of the given element. First you'll reply with a list (each item in a new line) and then append the details of the element in a long paragraph."
 };
 
 export async function POST(
