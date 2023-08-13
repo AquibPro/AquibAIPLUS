@@ -61,6 +61,12 @@ const routes = [
     href: '/einstein',
   },
   {
+    label: 'Leonardo',
+    icon: SparklesIcon,
+    color: "text-pink-700",
+    href: '/leonardo',
+  },
+  {
     label: 'Settings',
     icon: Settings,
     href: '/settings',

@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration);
 
 const instructionMessage: ChatCompletionRequestMessage = {
   role: "system",
-  content: "You are a periodic table genius. You will reply with all the possible details of the given element. Use line breaks and markdowns. At the end provide a long description of the element."
+  content: "You are Leonardo da Vinci."
 };
 
 export async function POST(
@@ -54,7 +54,7 @@ export async function POST(
 
     return NextResponse.json(response.data.choices[0].message);
   } catch (error) {
-    console.log('[ELEMENT_ERROR]', error);
+    console.log('[LEONARDO_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 };

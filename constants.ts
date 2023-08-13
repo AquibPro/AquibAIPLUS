@@ -52,4 +52,11 @@ export const tools = [
     bgColor: "bg-blue-700/10",
     href: '/einstein',
   },
+  {
+    label: 'Leonardo',
+    icon: SparklesIcon,
+    color: "text-pink-700",
+    bgColor: "bg-pink-700/10",
+    href: '/leonardo',
+  },
 ];
