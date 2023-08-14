@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Montserrat } from 'next/font/google'
-import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon, AtomIcon, SparklesIcon, Target, CrownIcon, SuperscriptIcon } from "lucide-react";
+import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon, AtomIcon, SparklesIcon, Target, CrownIcon, SuperscriptIcon, LibraryIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
@@ -77,6 +77,12 @@ const routes = [
     icon: CrownIcon,
     color: "text-red-700",
     href: '/magnus',
+  },
+  {
+    label: 'William Shakespeare',
+    icon: LibraryIcon,
+    color: "text-lime-700",
+    href: '/shakespeare',
   },
   {
     label: 'Settings',

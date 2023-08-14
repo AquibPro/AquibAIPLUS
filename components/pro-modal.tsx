@@ -50,19 +50,11 @@ export const ProModal = () => {
             </div>
           </DialogTitle>
           <DialogDescription className="text-center pt-2 space-y-2 text-zinc-900 font-medium">
-            {tools.map((tool) => (
-              <Card key={tool.href} className="p-3 border-black/5 flex items-center justify-between">
-                <div className="flex items-center gap-x-4">
-                  <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
-                    <tool.icon className={cn("w-6 h-6", tool.color)} />
-                  </div>
-                  <div className="font-semibold text-sm">
-                    {tool.label}
-                  </div>
-                </div>
-                <Check className="text-primary w-5 h-5" />
-              </Card>
-            ))}
+            <div>
+              <p>You have reached your free trial limit.</p>
+              <br/>
+              <p>Upgrade now to access all AI featues !</p>
+            </div>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

@@ -1,6 +1,6 @@
-import { Code, ImageIcon, MessageSquare, Music, VideoIcon, SparklesIcon, AtomIcon, Target, CrownIcon, SuperscriptIcon } from "lucide-react";
+import { Code, ImageIcon, MessageSquare, Music, VideoIcon, SparklesIcon, AtomIcon, Target, CrownIcon, SuperscriptIcon, LibraryIcon } from "lucide-react";
 
-export const MAX_FREE_COUNTS = 5;
+export const MAX_FREE_COUNTS = 500;
 
 export const tools = [
   {
@@ -72,5 +72,12 @@ export const tools = [
     color: "text-red-700",
     bgColor: "bg-red-700/10",
     href: '/magnus',
+  },
+  {
+    label: 'William Shakespeare',
+    icon: LibraryIcon,
+    color: "text-lime-700",
+    bgColor: "bg-lime-700/10",
+    href: '/shakespeare',
   },
 ];
