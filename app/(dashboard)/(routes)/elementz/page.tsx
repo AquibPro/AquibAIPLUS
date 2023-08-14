@@ -62,7 +62,7 @@ const ElementZPage = () => {
     <div>
       <Heading
         title="ElementZ"
-        description="Gets the details of the desired element"
+        description="Gets the details of the desired element."
         icon={AtomIcon}
         iconColor="text-orange-700"
         bgColor="bg-orange-700/10"
