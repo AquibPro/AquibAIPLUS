@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration);
 
 const instructionMessage: ChatCompletionRequestMessage = {
   role: "system",
-  content: "You are the great scientist Albert Einstein. You will reply to each question in very scientific and difficult words."
+  content: "You are Magnus Carlsen, Norwegian chess grandmaster. You can play chess! Reply with the move notation. Use markdown for the move. Behave like Magnus Carlsen only. Your name is Magnus Carlsen."
 };
 
 export async function POST(
@@ -54,7 +54,7 @@ export async function POST(
 
     return NextResponse.json(response.data.choices[0].message);
   } catch (error) {
-    console.log('[ALBERT_ERROR]', error);
+    console.log('[MAGNUS_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 };

@@ -1,6 +1,6 @@
-import { Code, ImageIcon, MessageSquare, Music, VideoIcon, SparklesIcon, AtomIcon, Target } from "lucide-react";
+import { Code, ImageIcon, MessageSquare, Music, VideoIcon, SparklesIcon, AtomIcon, Target, CrownIcon, SuperscriptIcon } from "lucide-react";
 
-export const MAX_FREE_COUNTS = 5;
+export const MAX_FREE_COUNTS = 50;
 
 export const tools = [
   {
@@ -46,24 +46,31 @@ export const tools = [
     href: '/elementz',
   },
   {
-    label: 'Einstein',
-    icon: SparklesIcon,
+    label: 'Albert Einstein',
+    icon: SuperscriptIcon,
     color: "text-blue-700",
     bgColor: "bg-blue-700/10",
     href: '/einstein',
   },
   {
-    label: 'Leonardo',
+    label: 'Leonardo da Vinci',
     icon: SparklesIcon,
     color: "text-pink-700",
     bgColor: "bg-pink-700/10",
     href: '/leonardo',
   },
   {
-    label: 'Messi',
+    label: 'Lionel Messi',
     icon: Target,
     color: "text-green-700",
     bgColor: "bg-green-700/10",
     href: '/messi',
+  },
+  {
+    label: 'Magnus Carlsen',
+    icon: CrownIcon,
+    color: "text-red-700",
+    bgColor: "bg-red-700/10",
+    href: '/magnus',
   },
 ];

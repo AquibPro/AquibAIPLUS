@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Montserrat } from 'next/font/google'
-import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon, AtomIcon, SparklesIcon, Target } from "lucide-react";
+import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon, AtomIcon, SparklesIcon, Target, CrownIcon, SuperscriptIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
@@ -55,22 +55,28 @@ const routes = [
     href: '/elementz',
   },
   {
-    label: 'Einstein',
-    icon: SparklesIcon,
+    label: 'Albert Einstein',
+    icon: SuperscriptIcon,
     color: "text-blue-700",
     href: '/einstein',
   },
   {
-    label: 'Leonardo',
+    label: 'Leonardo da Vinci',
     icon: SparklesIcon,
     color: "text-pink-700",
     href: '/leonardo',
   },
   {
-    label: 'Messi',
+    label: 'Lionel Messi',
     icon: Target,
     color: "text-green-700",
     href: '/messi',
+  },
+  {
+    label: 'Magnus Carlsen',
+    icon: CrownIcon,
+    color: "text-red-700",
+    href: '/magnus',
   },
   {
     label: 'Settings',
