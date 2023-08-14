@@ -1,4 +1,4 @@
-import { Code, ImageIcon, MessageSquare, Music, VideoIcon, SparklesIcon, AtomIcon } from "lucide-react";
+import { Code, ImageIcon, MessageSquare, Music, VideoIcon, SparklesIcon, AtomIcon, Target } from "lucide-react";
 
 export const MAX_FREE_COUNTS = 5;
 
@@ -58,5 +58,12 @@ export const tools = [
     color: "text-pink-700",
     bgColor: "bg-pink-700/10",
     href: '/leonardo',
+  },
+  {
+    label: 'Messi',
+    icon: Target,
+    color: "text-green-700",
+    bgColor: "bg-green-700/10",
+    href: '/messi',
   },
 ];
