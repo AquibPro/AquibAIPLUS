@@ -1,12 +1,8 @@
-import { LandingNavbar } from "@/components/landing-navbar";
-import { LandingHero } from "@/components/landing-hero";
-import { LandingContent } from "@/components/landing-content";
-import Head from "next/head";
 import React from 'react';
+import Head from "next/head";
 
-const LandingPage = () => {
-  return ( 
-    <div>
+export const Indexing = () => {
+    return (
     <Head>
       <title>Aquib AI</title>
       <meta name="title" content="Aquib AI" />
@@ -14,13 +10,5 @@ const LandingPage = () => {
       <meta name="keywords" content="aquib, aquib khan, ai, ai image, einstein, leonardo da vinci, messi, lionel, william shakespeare, ai code" />
       <meta name="author" content="Aquib Khan" />
     </Head>
-    <div className="h-full ">
-      <LandingNavbar />
-      <LandingHero />
-      <LandingContent />
-    </div>
-    </div>
-   );
-}
- 
-export default LandingPage;
+    );
+};
