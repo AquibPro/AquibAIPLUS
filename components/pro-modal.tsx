@@ -51,9 +51,7 @@ export const ProModal = () => {
           </DialogTitle>
           <DialogDescription className="text-center pt-2 space-y-2 text-zinc-900 font-medium">
             <div>
-              <p>You have reached your free trial limit.</p>
-              <br/>
-              <p>Upgrade now to access all AI featues !</p>
+              <p>Upgrade to get access to all the features instantly!</p>
             </div>
           </DialogDescription>
         </DialogHeader>
