@@ -24,7 +24,7 @@ import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
 
-const LeonardoPage = () => {
+const MagnusPage = () => {
   const router = useRouter();
   const proModal = useProModal();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
@@ -146,5 +146,5 @@ const LeonardoPage = () => {
    );
 }
  
-export default LeonardoPage;
+export default MagnusPage;
 
