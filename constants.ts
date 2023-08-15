@@ -1,4 +1,4 @@
-import { Code, ImageIcon, MessageSquare, Music, VideoIcon, SparklesIcon, AtomIcon, Target, CrownIcon, SuperscriptIcon, LibraryIcon } from "lucide-react";
+import { Code, ImageIcon, MessageSquare, Music, VideoIcon, SparklesIcon, AtomIcon, Target, CrownIcon, SuperscriptIcon, LibraryIcon, ZapIcon } from "lucide-react";
 
 export const MAX_FREE_COUNTS = 5;
 
@@ -79,5 +79,12 @@ export const tools = [
     color: "text-lime-700",
     bgColor: "bg-lime-700/10",
     href: '/shakespeare',
+  },
+  {
+    label: 'Elon Musk',
+    icon: ZapIcon,
+    color: "text-yellow-700",
+    bgColor: "bg-yellow-700/10",
+    href: '/elon',
   },
 ];

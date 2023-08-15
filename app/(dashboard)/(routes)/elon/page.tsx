@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { AtomIcon, Code, CrownIcon, LibraryIcon, MessageSquare, SparklesIcon, Target } from "lucide-react";
+import { AtomIcon, Code, CrownIcon, LibraryIcon, MessageSquare, SparklesIcon, Target, ZapIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -24,7 +24,7 @@ import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
 
-const WilliamPage = () => {
+const MuskPage = () => {
   const router = useRouter();
   const proModal = useProModal();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
@@ -43,7 +43,7 @@ const WilliamPage = () => {
       const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
       const newMessages = [...messages, userMessage];
       
-      const response = await axios.post('/api/shakespeare', { messages: newMessages });
+      const response = await axios.post('/api/elon', { messages: newMessages });
       setMessages((current) => [...current, userMessage, response.data]);
       
       form.reset();
@@ -61,11 +61,11 @@ const WilliamPage = () => {
   return ( 
     <div>
       <Heading
-        title="William Shakespeare"
-        description="Your AI english playwright and poet!"
-        icon={LibraryIcon}
-        iconColor="text-lime-700"
-        bgColor="bg-lime-700/10"
+        title="Elon Musk"
+        description="Your AI Tesla owner!"
+        icon={ZapIcon}
+        iconColor="text-yellow-700"
+        bgColor="bg-yellow-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -93,7 +93,7 @@ const WilliamPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
-                        placeholder="Write me a short comedy." 
+                        placeholder="What do you own?" 
                         {...field}
                       />
                     </FormControl>
@@ -146,5 +146,5 @@ const WilliamPage = () => {
    );
 }
  
-export default WilliamPage;
+export default MuskPage;
 
