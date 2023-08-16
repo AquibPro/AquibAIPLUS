@@ -15,6 +15,7 @@ export const LandingNavbar = () => {
 
   return (
     <nav className="p-4 bg-transparent flex items-center justify-between">
+      <p className="display-none">Explore the frontier of AI! Chat with virtual intellects, craft images from thin air, get code assistance, and engage with famed AI personas—all in one dynamic hub. Dive into the future, today.</p>
       <Link href="/" className="flex items-center">
         <div className="relative h-8 w-8 mr-4">
           <Image fill alt="Logo" src="/logo.png" />
