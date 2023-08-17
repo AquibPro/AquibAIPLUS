@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Montserrat } from 'next/font/google'
-import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon, AtomIcon, SparklesIcon, Target, CrownIcon, SuperscriptIcon, LibraryIcon, ZapIcon } from "lucide-react";
+import { Code, ImageIcon, LayoutDashboard, MessageSquare, Settings, AtomIcon, SparklesIcon, Target, CrownIcon, SuperscriptIcon, LibraryIcon, ZapIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
@@ -29,18 +29,6 @@ const routes = [
     icon: ImageIcon,
     color: "text-pink-700",
     href: '/image',
-  },
-  {
-    label: 'Video Generation',
-    icon: VideoIcon,
-    color: "text-orange-700",
-    href: '/video',
-  },
-  {
-    label: 'Music Generation',
-    icon: Music,
-    color: "text-emerald-500",
-    href: '/music',
   },
   {
     label: 'Code Generation',
