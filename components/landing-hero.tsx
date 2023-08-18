@@ -19,9 +19,7 @@ export const LandingHero = () => {
               strings: [
                 "AI Chat.",
                 "Photo Generation.",
-                "Music Generation.",
                 "Code Generation.",
-                "Video Generation",
                 "AI Personalities"
               ],
               autoStart: true,
