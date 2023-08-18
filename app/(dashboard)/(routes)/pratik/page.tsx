@@ -93,7 +93,7 @@ const PratikPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
-                        placeholder="Who are your best friends?" 
+                        placeholder="Describe everything about yourself" 
                         {...field}
                       />
                     </FormControl>
