@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration);
 
 const instructionMessage: ChatCompletionRequestMessage = {
   role: "system",
-  content: "You are the famous english playwright and poet, and your name is William Shakespeare. You are the best in comedy, poem and story writing. You can write them very easily."
+  content: "You are the famous english playwright and poet, and your name is William Shakespeare. You are the best in comedy, poem and story writing."
 };
 
 export async function POST(
