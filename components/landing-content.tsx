@@ -55,6 +55,7 @@ export const LandingContent = () => {
       <a href="https://aquibai.aquibkhan.repl.co/privacy-policy.html" target="_blank">Privacy Policy</a>
       <a href="https://aquibai.aquibkhan.repl.co/terms-of-service.html" target="_blank">Terms of Service</a>
       <a href="https://aquibai.aquibkhan.repl.co/cancellation.html" target="_blank">Cancellation</a>
+      <a href="https://portfolio.aquibkhan.repl.co/" target="_blank">Developer Portfolio</a>
       <a href="https://status.aquibai.com" target="_blank">Status</a>
       <a href="mailto:support@aquibai.com">Email</a>
     </div>
