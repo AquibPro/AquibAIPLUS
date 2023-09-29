@@ -50,6 +50,22 @@ export const LandingContent = () => {
           </Card>
         ))}
       </div>
+      <div className="px-10 py-8 pt-20">
+      <h2 className="text-center text-4xl text-white font-extrabold mb-10">Support</h2>
+      <div className="gap-4 text-white">
+        <div className="flex justify-evenly">
+        <p className="py-2 text-lg"><span className="font-bold">Standard - </span><a href="mailto:support@aquibai.com" className="text-cyan-400">support@aquibai.com</a></p>
+        <p className="py-2 text-lg"><span className="font-bold">Account issue - </span><a href="mailto:accounts@aquibai.com" className="text-cyan-400">accounts@aquibai.com</a></p>
+        </div>
+        <div className="flex justify-evenly">
+        <p className="py-2 text-lg"><span className="font-bold">Authentication issue - </span><a href="mailto:auth@aquibai.com" className="text-cyan-400">auth@aquibai.com</a></p>
+        <p className="py-2 text-lg"><span className="font-bold">Chatbot issue - </span><a href="mailto:bots@aquibai.com" className="text-cyan-400">bots@aquibai.com</a></p>
+        </div>
+        <div className="flex justify-evenly">
+        <p className="py-2 text-lg"><span className="font-bold">Image not generating - </span><a href="mailto:image@aquibai.com" className="text-cyan-400">image@aquibai.com</a></p>
+      </div>
+      </div>
+      </div>
       <footer className="bg-gray-800 text-white py-4 text-center w-full mt-24 mx-0 rounded-tl-xl rounded-tr-xl">
     <div className="flex flex-wrap justify-center items-center gap-x-10 text-white-400 py-4 px-0">
       <a href="https://aquibai.aquibkhan.repl.co/privacy-policy.html" target="_blank">Privacy Policy</a>
