@@ -56,7 +56,7 @@ export const LandingContent = () => {
       <div className="bg-[#192339] border-none text-white p-6 mb-16 hover:shadow-lg hover:translate-y-[-5px] transition-transform duration-300 ease-in-out">
         <h3 className="text-3xl font-bold mb-4">Aquib AI</h3>
         <p className="text-lg leading-relaxed">
-          Aquib AI is a cutting-edge artificial intelligence platform designed to empower users with advanced AI tools and solutions. Whether you're looking to generate high-quality images, engage in insightful conversations, or explore new AI-powered features, Aquib AI provides an intuitive and user-friendly experience. Our mission is to make AI accessible and beneficial for everyone, regardless of their technical background. By harnessing the power of the latest AI technologies, Aquib AI enables creativity, productivity, and innovation across various fields.
+          Aquib AI is a cutting-edge artificial intelligence platform designed to empower users with advanced AI tools and solutions. Whether you&apos;re looking to generate high-quality images, engage in insightful conversations, or explore new AI-powered features, Aquib AI provides an intuitive and user-friendly experience. Our mission is to make AI accessible and beneficial for everyone, regardless of their technical background. By harnessing the power of the latest AI technologies, Aquib AI enables creativity, productivity, and innovation across various fields.
         </p>
       </div>
 
