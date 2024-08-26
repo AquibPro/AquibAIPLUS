@@ -51,11 +51,23 @@ const aboutUs = [
 export const LandingContent = () => {
   return (
     <div className="px-10">
+      {/* What is Aquib AI Section */}
+      <h2 className="text-center text-4xl text-white font-extrabold mb-12">What is Aquib AI?</h2>
+      <div className="bg-[#192339] border-none text-white p-6 mb-16 hover:shadow-lg hover:translate-y-[-5px] transition-transform duration-300 ease-in-out">
+        <h3 className="text-3xl font-bold mb-4">Aquib AI</h3>
+        <p className="text-lg leading-relaxed">
+          Aquib AI is a cutting-edge artificial intelligence platform designed to empower users with advanced AI tools and solutions. Whether you're looking to generate high-quality images, engage in insightful conversations, or explore new AI-powered features, Aquib AI provides an intuitive and user-friendly experience. Our mission is to make AI accessible and beneficial for everyone, regardless of their technical background. By harnessing the power of the latest AI technologies, Aquib AI enables creativity, productivity, and innovation across various fields.
+        </p>
+      </div>
+
       {/* About Us Section */}
       <h2 className="text-center text-4xl text-white font-extrabold mb-12">About Us</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
         {aboutUs.map((item) => (
-          <Card key={item.title} className="bg-[#192339] border-none text-white p-4">
+          <Card 
+            key={item.title} 
+            className="bg-[#192339] border-none text-white p-4 hover:shadow-lg hover:translate-y-[-5px] transition-transform duration-300 ease-in-out"
+          >
             <CardHeader>
               <CardTitle className="text-2xl font-bold mb-3">{item.title}</CardTitle>
             </CardHeader>
@@ -70,7 +82,10 @@ export const LandingContent = () => {
       <h2 className="text-center text-4xl text-white font-extrabold mb-8">Testimonials</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {testimonials.map((item) => (
-          <Card key={item.description} className="bg-[#192339] border-none text-white p-4">
+          <Card 
+            key={item.description} 
+            className="bg-[#192339] border-none text-white p-4 hover:shadow-lg hover:translate-y-[-5px] transition-transform duration-300 ease-in-out"
+          >
             <CardHeader>
               <CardTitle className="text-2xl font-bold mb-3">{item.name}</CardTitle>
               <p className="text-zinc-400 text-sm">{item.title}</p>
@@ -80,6 +95,20 @@ export const LandingContent = () => {
             </CardContent>
           </Card>
         ))}
+      </div>
+
+      {/* Video Testimonial Section */}
+      <div className="mt-12 mb-24">
+        <h3 className="text-center text-3xl text-white font-bold mb-6">Watch Our Video Testimonial</h3>
+        <div className="flex justify-center">
+          <video 
+            className="w-full max-w-xl h-64 rounded-lg shadow-lg" 
+            controls
+          >
+            <source src="video_testimonial.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
 
       <footer className="bg-gray-800 text-white py-4 text-center w-full mt-24 mx-0 rounded-tl-xl rounded-tr-xl">
@@ -96,3 +125,4 @@ export const LandingContent = () => {
     </div>
   );
 }
+
