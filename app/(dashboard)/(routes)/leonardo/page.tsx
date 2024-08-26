@@ -147,4 +147,3 @@ const LeonardoPage = () => {
 }
  
 export default LeonardoPage;
-
