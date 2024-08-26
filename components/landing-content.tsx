@@ -105,8 +105,7 @@ export const LandingContent = () => {
             className="w-full max-w-xl h-64 rounded-lg shadow-lg" 
             controls
           >
-            <source src="https://drive.google.com/uc?export=download&id=14yx6vYp60aCkK9nyL9I6eWs_tSVo3ndG
-" type="video/mp4" />
+            <source src="video_testimonial.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
