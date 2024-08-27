@@ -29,7 +29,7 @@ export const LandingHero = () => {
         </div>
       </div>
       <div className="text-sm md:text-xl font-light text-zinc-400">
-        AI of the people and for the people.
+      Unleashing Power for Lightning-Fast Results!
       </div>
       <div>
         <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
