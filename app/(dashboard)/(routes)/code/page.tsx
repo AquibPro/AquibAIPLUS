@@ -10,7 +10,7 @@ import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/heading";
@@ -176,7 +176,7 @@ const CodePage = () => {
                           const language = className ? className.replace("language-", "") : "plaintext";
                           return !inline ? (
                             <SyntaxHighlighter
-                              style={solarizedlight}
+                              style={dracula}
                               language={language}
                               PreTag="div"
                             >
