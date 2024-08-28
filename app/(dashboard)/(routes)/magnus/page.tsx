@@ -93,7 +93,8 @@ const MagnusPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
-                        placeholder="I want to play chess with you!" 
+                        placeholder="Is becoming a grandmaster difficult?" 
+                        autoComplete="off"
                         {...field}
                       />
                     </FormControl>

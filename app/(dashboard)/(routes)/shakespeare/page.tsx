@@ -94,6 +94,7 @@ const WilliamPage = () => {
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
                         placeholder="Write me a short comedy." 
+                        autoComplete="off"
                         {...field}
                       />
                     </FormControl>

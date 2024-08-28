@@ -61,7 +61,7 @@ const ConversationPage = () => {
     <div>
       <Heading
         title="Conversation"
-        description="Our most advanced AI conversation model."
+        description="Our most advanced AI conversation model. Uses GPT-4o."
         icon={MessageSquare}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
@@ -93,6 +93,7 @@ const ConversationPage = () => {
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
                         placeholder="Explain theory of relativity." 
+                        autoComplete="off"
                         {...field}
                       />
                     </FormControl>

@@ -94,6 +94,7 @@ const MuskPage = () => {
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
                         placeholder="What do you own?" 
+                        autoComplete="off"
                         {...field}
                       />
                     </FormControl>
