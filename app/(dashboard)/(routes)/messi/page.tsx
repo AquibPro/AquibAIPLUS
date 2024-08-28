@@ -2,9 +2,9 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { AtomIcon, Code, MessageSquare, SparklesIcon, Target } from "lucide-react";
+import { Target } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
@@ -28,24 +28,77 @@ const MessiPage = () => {
   const router = useRouter();
   const proModal = useProModal();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [displayedMessages, setDisplayedMessages] = useState<
+    ChatCompletionRequestMessage[]
+  >([]);
+  const typewriterTimeouts = useRef<NodeJS.Timeout[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      prompt: ""
-    }
+      prompt: "",
+    },
   });
 
   const isLoading = form.formState.isSubmitting;
+
+  // Clears the typing effect timeouts when component unmounts
+  useEffect(() => {
+    return () => {
+      typewriterTimeouts.current.forEach(clearTimeout);
+    };
+  }, []);
+
+  // Handles the typing effect for bot messages
+  const typeMessage = (index: number, content: string) => {
+    let charIndex = 0;
+    const interval = setInterval(() => {
+      setMessages((prevMessages) => {
+        const updatedMessages = prevMessages.map((msg, i) => {
+          if (i === index) {
+            const newDisplayedText = content.substring(0, charIndex + 1);
+            charIndex++;
+            if (charIndex > content.length) {
+              clearInterval(interval);
+              return { ...msg, displayedText: content };
+            }
+            return { ...msg, displayedText: newDisplayedText };
+          }
+          return msg;
+        });
+        return updatedMessages;
+      });
+    }, 5); // Adjust speed to 30ms per character
+  };
   
+
+  // Triggers the typing effect whenever new messages are added
+  useEffect(() => {
+    displayedMessages.forEach((message, index) => {
+      if (message.role === "assistant" && message.content !== messages[index]?.content) {
+        typeMessage(index, messages[index].content || "");
+      }
+    });
+  }, [displayedMessages, messages]);
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
+      const userMessage: ChatCompletionRequestMessage = {
+        role: "user",
+        content: values.prompt,
+      };
       const newMessages = [...messages, userMessage];
-      
-      const response = await axios.post('/api/messi', { messages: newMessages });
-      setMessages((current) => [...current, userMessage, response.data]);
-      
+
+      const response = await axios.post("/api/messi", { messages: newMessages });
+      const assistantMessage = response.data;
+
+      setMessages((current) => [...current, userMessage, assistantMessage]);
+      setDisplayedMessages((current) => [
+        ...current,
+        userMessage,
+        { ...assistantMessage, content: "" }, // Start typing with an empty string
+      ]);
+
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
@@ -56,9 +109,9 @@ const MessiPage = () => {
     } finally {
       router.refresh();
     }
-  }
+  };
 
-  return ( 
+  return (
     <div>
       <Heading
         title="Lionel Messi"
@@ -70,8 +123,8 @@ const MessiPage = () => {
       <div className="px-4 lg:px-8">
         <div>
           <Form {...form}>
-            <form 
-              onSubmit={form.handleSubmit(onSubmit)} 
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
               className="
                 rounded-lg 
                 border 
@@ -92,8 +145,8 @@ const MessiPage = () => {
                     <FormControl className="m-0 p-0">
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                        disabled={isLoading} 
-                        placeholder="Which country are you from?" 
+                        disabled={isLoading}
+                        placeholder="Which country are you from?"
                         autoComplete="off"
                         {...field}
                       />
@@ -101,7 +154,12 @@ const MessiPage = () => {
                   </FormItem>
                 )}
               />
-              <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
+              <Button
+                className="col-span-12 lg:col-span-2 w-full"
+                type="submit"
+                disabled={isLoading}
+                size="icon"
+              >
                 Generate
               </Button>
             </form>
@@ -117,25 +175,30 @@ const MessiPage = () => {
             <Empty label="No conversation started." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message) => (
-              <div 
-                key={message.content} 
+            {displayedMessages.map((message, index) => (
+              <div
+                key={index}
                 className={cn(
                   "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                  message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
+                  message.role === "user"
+                    ? "bg-white border border-black/10"
+                    : "bg-muted"
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <ReactMarkdown components={{
-                  pre: ({ node, ...props }) => (
-                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
-                      <pre {...props} />
-                    </div>
-                  ),
-                  code: ({ node, ...props }) => (
-                    <code className="bg-black/10 rounded-lg p-1" {...props} />
-                  )
-                }} className="text-sm overflow-hidden leading-7">
+                <ReactMarkdown
+                  components={{
+                    pre: ({ node, ...props }) => (
+                      <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                        <pre {...props} />
+                      </div>
+                    ),
+                    code: ({ node, ...props }) => (
+                      <code className="bg-black/10 rounded-lg p-1" {...props} />
+                    ),
+                  }}
+                  className="text-sm overflow-hidden leading-7"
+                >
                   {message.content || ""}
                 </ReactMarkdown>
               </div>
@@ -144,7 +207,7 @@ const MessiPage = () => {
         </div>
       </div>
     </div>
-   );
-}
- 
+  );
+};
+
 export default MessiPage;

@@ -2,9 +2,9 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { AtomIcon, Code, CrownIcon, LibraryIcon, MessageSquare, SparklesIcon, Target } from "lucide-react";
+import { LibraryIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
@@ -24,28 +24,67 @@ import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
 
+type EnhancedMessage = ChatCompletionRequestMessage & {
+  displayedText?: string;
+};
+
 const WilliamPage = () => {
   const router = useRouter();
   const proModal = useProModal();
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [messages, setMessages] = useState<EnhancedMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      prompt: ""
-    }
+      prompt: "",
+    },
   });
 
   const isLoading = form.formState.isSubmitting;
+
+  // Function to handle typing effect for a specific message
+  const typeMessage = (index: number, content: string) => {
+    let charIndex = 0;
+    const interval = setInterval(() => {
+      setMessages((prevMessages) => {
+        const updatedMessages = prevMessages.map((msg, i) => {
+          if (i === index) {
+            const newDisplayedText = content.substring(0, charIndex + 1);
+            charIndex++;
+            if (charIndex > content.length) {
+              clearInterval(interval);
+              return { ...msg, displayedText: content };
+            }
+            return { ...msg, displayedText: newDisplayedText };
+          }
+          return msg;
+        });
+        return updatedMessages;
+      });
+    }, 5); // Adjust speed to 30ms per character
+  };
   
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
+      const userMessage: EnhancedMessage = {
+        role: "user",
+        content: values.prompt,
+      };
       const newMessages = [...messages, userMessage];
-      
-      const response = await axios.post('/api/shakespeare', { messages: newMessages });
-      setMessages((current) => [...current, userMessage, response.data]);
-      
+
+      const response = await axios.post("/api/shakespeare", {
+        messages: newMessages,
+      });
+      const aiMessage: EnhancedMessage = {
+        ...response.data,
+        displayedText: "", // Initialize displayed text
+      };
+      setMessages((current) => [...current, userMessage, aiMessage]);
+
+      // Start typing effect on the latest message
+      typeMessage(newMessages.length, response.data.content);
+
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
@@ -56,9 +95,9 @@ const WilliamPage = () => {
     } finally {
       router.refresh();
     }
-  }
+  };
 
-  return ( 
+  return (
     <div>
       <Heading
         title="William Shakespeare"
@@ -70,8 +109,8 @@ const WilliamPage = () => {
       <div className="px-4 lg:px-8">
         <div>
           <Form {...form}>
-            <form 
-              onSubmit={form.handleSubmit(onSubmit)} 
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
               className="
                 rounded-lg 
                 border 
@@ -92,8 +131,8 @@ const WilliamPage = () => {
                     <FormControl className="m-0 p-0">
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                        disabled={isLoading} 
-                        placeholder="Write me a short comedy." 
+                        disabled={isLoading}
+                        placeholder="Write me a short comedy."
                         autoComplete="off"
                         {...field}
                       />
@@ -101,7 +140,12 @@ const WilliamPage = () => {
                   </FormItem>
                 )}
               />
-              <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
+              <Button
+                className="col-span-12 lg:col-span-2 w-full"
+                type="submit"
+                disabled={isLoading}
+                size="icon"
+              >
                 Generate
               </Button>
             </form>
@@ -117,35 +161,40 @@ const WilliamPage = () => {
             <Empty label="No conversation started." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message) => (
-              <div 
-                key={message.content} 
+            {messages.map((message, index) => (
+              <div
+                key={message.content}
                 className={cn(
                   "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                  message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
+                  message.role === "user"
+                    ? "bg-white border border-black/10"
+                    : "bg-muted"
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <ReactMarkdown components={{
-                  pre: ({ node, ...props }) => (
-                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
-                      <pre {...props} />
-                    </div>
-                  ),
-                  code: ({ node, ...props }) => (
-                    <code className="bg-black/10 rounded-lg p-1" {...props} />
-                  )
-                }} className="text-sm overflow-hidden leading-7">
-                  {message.content || ""}
-                </ReactMarkdown>
+                <ReactMarkdown
+  components={{
+    pre: ({ node, ...props }) => (
+      <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+        <pre {...props} />
+      </div>
+    ),
+    code: ({ node, ...props }) => (
+      <code className="bg-black/10 rounded-lg p-1" {...props} />
+    ),
+  }}
+  className="text-sm overflow-hidden leading-7"
+>
+  {message.role === "user" ? message.content || "" : message.displayedText || message.content || ""}
+</ReactMarkdown>
+
               </div>
             ))}
           </div>
         </div>
       </div>
     </div>
-   );
-}
- 
-export default WilliamPage;
+  );
+};
 
+export default WilliamPage;

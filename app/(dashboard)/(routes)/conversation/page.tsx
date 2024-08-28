@@ -23,10 +23,14 @@ import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
 
+type EnhancedMessage = ChatCompletionRequestMessage & {
+  displayedText?: string;
+};
+
 const ConversationPage = () => {
   const router = useRouter();
   const proModal = useProModal();
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [messages, setMessages] = useState<EnhancedMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,14 +40,43 @@ const ConversationPage = () => {
   });
 
   const isLoading = form.formState.isSubmitting;
-  
+
+  // Function to handle typing effect for a specific message
+  const typeMessage = (index: number, content: string) => {
+    let charIndex = 0;
+    const interval = setInterval(() => {
+      setMessages((prevMessages) => {
+        const updatedMessages = prevMessages.map((msg, i) => {
+          if (i === index) {
+            const newDisplayedText = content.substring(0, charIndex + 1);
+            charIndex++;
+            if (charIndex > content.length) {
+              clearInterval(interval);
+              return { ...msg, displayedText: content };
+            }
+            return { ...msg, displayedText: newDisplayedText };
+          }
+          return msg;
+        });
+        return updatedMessages;
+      });
+    }, 30); // Adjust speed to 30ms per character
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
+      const userMessage: EnhancedMessage = { role: "user", content: values.prompt };
       const newMessages = [...messages, userMessage];
       
       const response = await axios.post('/api/conversation', { messages: newMessages });
-      setMessages((current) => [...current, userMessage, response.data]);
+      const aiMessage: EnhancedMessage = {
+        ...response.data,
+        displayedText: "", // Initialize displayed text
+      };
+      setMessages((current) => [...current, userMessage, aiMessage]);
+
+      // Start typing effect on the latest message
+      typeMessage(newMessages.length, response.data.content);
       
       form.reset();
     } catch (error: any) {
@@ -57,7 +90,7 @@ const ConversationPage = () => {
     }
   }
 
-  return ( 
+  return (
     <div>
       <Heading
         title="Conversation"
@@ -116,9 +149,9 @@ const ConversationPage = () => {
             <Empty label="No conversation started." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message) => (
+            {messages.map((message, index) => (
               <div 
-                key={message.content} 
+                key={index} 
                 className={cn(
                   "p-8 w-full flex items-start gap-x-8 rounded-lg",
                   message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
@@ -126,7 +159,9 @@ const ConversationPage = () => {
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
                 <p className="text-sm">
-                  {message.content}
+                  {message.role === "user"
+                    ? message.content || ""
+                    : message.displayedText || message.content || ""}
                 </p>
               </div>
             ))}
@@ -134,8 +169,7 @@ const ConversationPage = () => {
         </div>
       </div>
     </div>
-   );
+  );
 }
- 
-export default ConversationPage;
 
+export default ConversationPage;

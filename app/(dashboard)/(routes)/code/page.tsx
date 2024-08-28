@@ -9,6 +9,8 @@ import { toast } from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/heading";
@@ -24,10 +26,14 @@ import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
 
+type EnhancedMessage = ChatCompletionRequestMessage & {
+  displayedText?: string;
+};
+
 const CodePage = () => {
   const router = useRouter();
   const proModal = useProModal();
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [messages, setMessages] = useState<EnhancedMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,14 +43,41 @@ const CodePage = () => {
   });
 
   const isLoading = form.formState.isSubmitting;
-  
+
+  const typeMessage = (index: number, content: string) => {
+    let charIndex = 0;
+    const interval = setInterval(() => {
+      setMessages((prevMessages) =>
+        prevMessages.map((msg, i) => {
+          if (i === index) {
+            const newDisplayedText = content.substring(0, charIndex + 1);
+            charIndex++;
+            if (charIndex > content.length) {
+              clearInterval(interval);
+              return { ...msg, displayedText: content };
+            }
+            return { ...msg, displayedText: newDisplayedText };
+          }
+          return msg;
+        })
+      );
+    }, 5); // Adjust speed to 30ms per character
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
+      const userMessage: EnhancedMessage = { role: "user", content: values.prompt };
       const newMessages = [...messages, userMessage];
       
       const response = await axios.post('/api/code', { messages: newMessages });
-      setMessages((current) => [...current, userMessage, response.data]);
+      const aiMessage: EnhancedMessage = {
+        ...response.data,
+        displayedText: "", // Initialize displayed text
+      };
+      setMessages((current) => [...current, userMessage, aiMessage]);
+
+      // Start typing effect on the latest message
+      typeMessage(newMessages.length, response.data.content);
       
       form.reset();
     } catch (error: any) {
@@ -58,7 +91,7 @@ const CodePage = () => {
     }
   }
 
-  return ( 
+  return (
     <div>
       <Heading
         title="Code Generation"
@@ -117,35 +150,57 @@ const CodePage = () => {
             <Empty label="No conversation started." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message) => (
+            {messages.map((message, index) => (
               <div 
-                key={message.content} 
+                key={index} 
                 className={cn(
                   "p-8 w-full flex items-start gap-x-8 rounded-lg",
                   message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <ReactMarkdown components={{
-                  pre: ({ node, ...props }) => (
-                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
-                      <pre {...props} />
-                    </div>
-                  ),
-                  code: ({ node, ...props }) => (
-                    <code className="bg-black/10 rounded-lg p-1" {...props} />
-                  )
-                }} className="text-sm overflow-hidden leading-7">
-                  {message.content || ""}
-                </ReactMarkdown>
+                <div className="text-sm overflow-hidden leading-7">
+                  {message.role === "user" ? (
+                    <ReactMarkdown>
+                      {message.content || ""}
+                    </ReactMarkdown>
+                  ) : (
+                    <ReactMarkdown
+                      components={{
+                        pre: ({ node, ...props }) => (
+                          <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                            <pre {...props} />
+                          </div>
+                        ),
+                        code: ({ node, inline, className, children, ...props }) => {
+                          const language = className ? className.replace("language-", "") : "plaintext";
+                          return !inline ? (
+                            <SyntaxHighlighter
+                              style={solarizedlight}
+                              language={language}
+                              PreTag="div"
+                            >
+                              {String(children).replace(/\n$/, '')}
+                            </SyntaxHighlighter>
+                          ) : (
+                            <code className="bg-black/10 rounded-lg p-1" {...props}>
+                              {children}
+                            </code>
+                          );
+                        }
+                      }}
+                    >
+                      {message.displayedText || message.content || ""}
+                    </ReactMarkdown>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
     </div>
-   );
+  );
 }
- 
-export default CodePage;
 
+export default CodePage;
