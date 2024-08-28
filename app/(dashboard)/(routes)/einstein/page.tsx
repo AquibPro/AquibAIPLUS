@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { LibraryIcon } from "lucide-react";
+import { SuperscriptIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -28,7 +28,7 @@ type EnhancedMessage = ChatCompletionRequestMessage & {
   displayedText?: string;
 };
 
-const WilliamPage = () => {
+const AlbertPage = () => {
   const router = useRouter();
   const proModal = useProModal();
   const [messages, setMessages] = useState<EnhancedMessage[]>([]);
@@ -36,8 +36,8 @@ const WilliamPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      prompt: "",
-    },
+      prompt: ""
+    }
   });
 
   const isLoading = form.formState.isSubmitting;
@@ -61,21 +61,15 @@ const WilliamPage = () => {
         });
         return updatedMessages;
       });
-    }, 5); // Adjust speed to 30ms per character
+    }, 5); // Typing speed set to 5ms per character
   };
-  
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: EnhancedMessage = {
-        role: "user",
-        content: values.prompt,
-      };
+      const userMessage: EnhancedMessage = { role: "user", content: values.prompt };
       const newMessages = [...messages, userMessage];
-
-      const response = await axios.post("/api/shakespeare", {
-        messages: newMessages,
-      });
+      
+      const response = await axios.post('/api/einstein', { messages: newMessages });
       const aiMessage: EnhancedMessage = {
         ...response.data,
         displayedText: "", // Initialize displayed text
@@ -100,11 +94,11 @@ const WilliamPage = () => {
   return (
     <div>
       <Heading
-        title="William Shakespeare"
-        description="Your AI english playwright and poet!"
-        icon={LibraryIcon}
-        iconColor="text-lime-700"
-        bgColor="bg-lime-700/10"
+        title="Albert Einstein"
+        description="The great clone of Albert Einstein!"
+        icon={SuperscriptIcon}
+        iconColor="text-blue-700"
+        bgColor="bg-blue-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -132,7 +126,7 @@ const WilliamPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="Write me a short comedy."
+                        placeholder="Ask me a scientific question"
                         autoComplete="off"
                         {...field}
                       />
@@ -140,12 +134,7 @@ const WilliamPage = () => {
                   </FormItem>
                 )}
               />
-              <Button
-                className="col-span-12 lg:col-span-2 w-full"
-                type="submit"
-                disabled={isLoading}
-                size="icon"
-              >
+              <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
                 Generate
               </Button>
             </form>
@@ -163,31 +152,29 @@ const WilliamPage = () => {
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message, index) => (
               <div
-              key={message.content}
-              className={cn(
-                "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                message.role === "user" ? "bg-white border border-black/10" : "bg-muted"
-              )}
-            >
-              {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-              <ReactMarkdown
-                components={{
-                  pre: ({ node, ...props }) => (
-                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
-                      <pre {...props} />
-                    </div>
-                  ),
-                  code: ({ node, ...props }) => (
-                    <code className="bg-black/10 rounded-lg p-1" {...props} />
-                  ),
-                }}
-                className="text-sm overflow-hidden leading-7"
+                key={index}
+                className={cn(
+                  "p-8 w-full flex items-start gap-x-8 rounded-lg",
+                  message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
+                )}
               >
-                {message.role === "user"
-                  ? message.content || ""
-                  : (message.displayedText || message.content || "").toString()}
-              </ReactMarkdown>
-            </div>            
+                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
+                <ReactMarkdown
+                  components={{
+                    pre: ({ node, ...props }) => (
+                      <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                        <pre {...props} />
+                      </div>
+                    ),
+                    code: ({ node, ...props }) => (
+                      <code className="bg-black/10 rounded-lg p-1" {...props} />
+                    ),
+                  }}
+                  className="text-sm overflow-hidden leading-7"
+                >
+                  {message.displayedText || message.content || ""}
+                </ReactMarkdown>
+              </div>
             ))}
           </div>
         </div>
@@ -196,4 +183,4 @@ const WilliamPage = () => {
   );
 };
 
-export default WilliamPage;
+export default AlbertPage;
