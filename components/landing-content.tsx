@@ -115,6 +115,7 @@ export const LandingContent = () => {
         <div className="flex flex-wrap justify-center items-center gap-x-10 text-white-400 py-4 px-0">
           <a href="https://aquibai.com/privacy-policy.html" target="_blank">Privacy Policy</a>
           <a href="https://aquibai.com/terms-of-service.html" target="_blank">Terms of Service</a>
+          <a href="https://aquibai.com/whitepaper.html" target="_blank">Whitepaper</a>
           <a href="https://aquibai.com/cancellation.html" target="_blank">Cancellation</a>
           <a href="https://status.aquibai.com" target="_blank">Status</a>
           <a href="https://aquibai.com/contact.html" target="_blank">Contact Us</a>
