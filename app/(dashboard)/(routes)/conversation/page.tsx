@@ -60,7 +60,7 @@ const ConversationPage = () => {
         });
         return updatedMessages;
       });
-    }, 30); // Adjust speed to 30ms per character
+    }, 5); // Adjust speed to 30ms per character
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
